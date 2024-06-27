@@ -1,3 +1,5 @@
+let sortType = 'По цене (убыванию)';
+let ProdyctType = 'Phone';
 document.addEventListener('click', function(e) {
     // Работа с бургер меню-------------------------------------------------------------------------
     let menuBtn = document.querySelector('.menu-btn');
@@ -28,47 +30,38 @@ document.addEventListener('click', function(e) {
     };
     let selectItem = document.querySelector('.catalog-rigth-select')
     if(e.target.closest('.catalog-rigth-select-type')) {
-      selectItem.querySelector('span').textContent = e.target.textContent
+      selectItem.querySelector('span').textContent = e.target.textContent;
+      sortType = e.target.textContent
       selects.classList.remove('_select-open')
+      fetchData(sortType, ProdyctType)
     };
 
-    //Работа для выбора какой тип товара показывает
+    //Работа для выбора какой тип товара показывает-----------------------------------------------
     let viewTowar = document.querySelector('.catalog-top-view');
     if(e.target.closest('.catalog-top-type')) {
       let typeTowar = document.querySelector('._type-active');
       typeTowar.classList.remove('_type-active')
       viewTowar.textContent = e.target.textContent
       e.target.classList.add('_type-active');
+      ProdyctType = e.target.dataset.producttype
+      fetchData(sortType, ProdyctType)
     };
 
+    //Открытие фильтра на мобилках-------------------------------------------------
     if(e.target.closest('._filter-open') || e.target.closest('._filter-close')) {
       let filter = document.querySelector('.catalog-filter');
       filter.classList.toggle('_filter-active')
       html.classList.toggle('_overflow');
     };
-});
 
-//Функция для слайдера в товарах---------------------------------------------------------------
-let allNavigations = document.querySelectorAll('.towar-slide-navigation');
-[...allNavigations].forEach(function(item) {
-  item.addEventListener('mouseenter', function(e) {
-    let activeItem = e.target.closest('.towar-slide');
-    let active = activeItem.closest('.towar-sliders-wrapper').querySelector('._active');
-    if(active) {active.classList.remove('_active')}
-    activeItem.classList.add('_active')
-
-  })
+    //Открытые меню характеристик-------------------------------------------------
+    let charectersMenu = document.querySelector('.characteristic');
+    if(e.target.closest('.towar-btn') || !e.target.closest('.characteristic-row') && charectersMenu.classList.contains('active') || e.target.closest('.characteristic-close')) {
+      charectersMenu.classList.toggle('active');
+      html.classList.toggle('_overflow');
+      addCharecters(e.target.parentNode.getAttribute('id'))
+    }
 });
-[...allNavigations].forEach(function(item) {
-  item.addEventListener('mouseleave', function(e) {
-    let activeItem = e.target.closest('.towar-slide');
-    let active = activeItem.closest('.towar-sliders-wrapper').querySelector('._active');
-    let ferst = activeItem.closest('.towar-sliders-wrapper').querySelector('.towar-slide')
-    if(active) {active.classList.remove('_active')}
-    ferst.classList.add('_active')
-  })
-});
-
 const swiper = new Swiper('.intro-sliders', {
     loop: true,
     speed: 800,
@@ -82,3 +75,126 @@ const swiper = new Swiper('.intro-sliders', {
       prevEl: '.intro-button-prev',
     },
 });
+
+//Получение Json ДАННЫХ--------------------------------------------------------------------------------------------------
+let globalData = [];
+async function fetchData(type, typeProduct) {
+  try {
+      // Загружаем JSON-файл
+      const response = await fetch('../json/towarData.json');
+
+      // Проверяем, успешен ли запрос
+      if (!response.ok) {
+          throw new Error('Network response was not ok ' + response.statusText);
+      }
+
+      // Преобразуем содержимое в JSON-формат
+      const data = await response.json();
+      const dataFilter = data.filter(function(item) {
+        return item.productType == typeProduct
+      });
+      if(type == 'По цене (убыванию)') {
+        dataFilter.sort((a, b) => b.price - a.price);
+      } else if (type == 'По цене (возрастание)') {dataFilter.sort((a, b) => a.price - b.price);}
+
+      // Выводим данные в консоль или используем их по назначению
+      globalData = dataFilter
+      loadTowars(dataFilter);
+  } catch (error) {
+      // Обрабатываем ошибки
+      console.error('There has been a problem with your fetch operation:', error);
+  }
+}
+fetchData(sortType, ProdyctType);
+
+//Подгрузка товаров---------------------------------------------------------------
+function loadTowars(data) {
+  const towarContainer = document.querySelector('.catalog-rigth-towars');
+  towarContainer.innerHTML = ''
+  data.forEach(item => {
+    let towarStartBlock = `<div id="${item.id}" class="catalog-rigth-towar towar">`;
+    let TowarEndBlock = `</div>`
+    let towarContentBlock = `
+      <div class="towar-content">
+        <h4 class="towar-content-title">${item.title}</h4>
+        <div class="towar-content-info _df-flex">
+            <div class="towar-content-price">${new Intl.NumberFormat('ru-RU').format(item.price)} ₽</div>
+            ${item.status == "true" ? '<div class="towar-content-status">В наличии</div>' : '<div class="towar-content-status status-not">Нет в наличии</div>'}
+        </div>
+      </div>
+    `;
+    let towarSlidersStart = `
+      <div class="towar-sliders">
+        <div class="towar-sliders-wrapper">
+    `;
+    let towarSlidersSlids = '';
+    item.towarImages.forEach(img => {
+      if(item.towarImages[0].src == img.src) {
+        towarSlidersSlids += `<span class="towar-slide _active">
+            <span class="towar-slide-navigation"></span>
+            <img src="${img.src}" alt="${item.title}" class="towar-slide-img">
+          </span>
+        `
+      } else {
+        towarSlidersSlids += `<span class="towar-slide">
+            <span class="towar-slide-navigation"></span>
+            <img src="${img.src}" alt="${item.title}" class="towar-slide-img">
+          </span>
+        `
+      }
+    });
+    let towarSlidersEnd = `
+        </div>
+      </div>
+    `
+    let towarButtonBlock = `<button type="button" class="towar-btn">Подробнее</button>`
+    let productTemplateBody = '';
+    productTemplateBody += towarStartBlock;
+    productTemplateBody += towarSlidersStart;
+    productTemplateBody += towarSlidersSlids;
+    productTemplateBody += towarSlidersEnd;
+    productTemplateBody += towarContentBlock;
+    productTemplateBody += towarButtonBlock;
+    productTemplateBody += TowarEndBlock;
+    towarContainer.insertAdjacentHTML('beforeend', productTemplateBody);
+  })
+  let colvoTowar = document.querySelector('.catalog-top-colvo');
+  colvoTowar.textContent = `${data.length} товаров`
+  //Функция для слайдера в товарах---------------------------------------------------------------
+  let allNavigations = document.querySelectorAll('.towar-slide-navigation');
+
+  [...allNavigations].forEach(function(item) {
+    item.addEventListener('mouseenter', function(e) {
+      let activeItem = e.target.closest('.towar-slide');
+      let active = activeItem.closest('.towar-sliders-wrapper').querySelector('._active');
+      if(active) {active.classList.remove('_active')}
+      activeItem.classList.add('_active')
+
+    })
+  });
+  [...allNavigations].forEach(function(item) {
+    item.addEventListener('mouseleave', function(e) {
+      let activeItem = e.target.closest('.towar-slide');
+      let active = activeItem.closest('.towar-sliders-wrapper').querySelector('._active');
+      let ferst = activeItem.closest('.towar-sliders-wrapper').querySelector('.towar-slide')
+      if(active) {active.classList.remove('_active')}
+      ferst.classList.add('_active')
+    })
+  });
+}
+//Подгруска характеристик товара----------------------------------------------------------
+let charectersContainer = document.querySelector('.characteristic-items');
+function addCharecters(id) {
+  let charectersData = globalData.find(item => item.id === id);
+  charectersContainer.innerHTML = ''
+  if(id == null || charectersData.features === undefined){return}
+  let charectersHtml = '';
+  charectersData.features.forEach(item => {
+    charectersHtml += `
+      <div class="characteristic-item">
+        ${item.feature} <span></span> <p>${item.value}</p>
+      </div>
+    `
+  })
+  charectersContainer.insertAdjacentHTML('beforeend', charectersHtml);
+}

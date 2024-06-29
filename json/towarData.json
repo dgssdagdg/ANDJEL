@@ -1,93 +1,167 @@
-[
-    {
-        "id": "1",
-        "title": "Смартфон Apple iPhone 15 Pro Max 256Gb Natural Titanium (1 sim + eSIM) официально замененный в АСЦ",
-        "price": "100000",
-        "status": "true",
-        "productType": "Phone",
-        "towarImages": [
-            {"src": "./img/towars/iphone.png"},
-            {"src": "./img/towars/two.jpeg"},
-            {"src": "./img/towars/three.jpeg"},
-            {"src": "./img/towars/four.jpeg"}
-        ],
-        "features":[
-            {"feature": "Цвет", "value": "Титан"},
-            {"feature": "Встроенная память, Гб", "value": "256 Гб"},
-            {"feature": "Количество SIM-карт", "value": "1 + eSIM"},
-            {"feature": "Материал корпуса", "value": "Металл и стекло"},
-            {"feature": "Диагональ дисплея, Дюйм", "value": "6.7"},
-            {"feature": "Процессор", "value": "Apple A17 Pro"}
-        ]
-    },
-    {
-        "id": "2",
-        "title": "Смартфон Apple iPhone 15 Pro Max 256Gb Natural Titanium (1 sim + eSIM) официально замененный в АСЦ",
-        "price": "110000",
-        "status": "false",
-        "productType": "Phone",
-        "towarImages": [
-            {"src": "./img/towars/iphone.png"},
-            {"src": "./img/towars/two.jpeg"},
-            {"src": "./img/towars/three.jpeg"},
-            {"src": "./img/towars/four.jpeg"}
-        ],
-        "features":[
-            {"feature": "Цвет", "value": "Титан"},
-            {"feature": "Встроенная память, Гб", "value": "256 Гб"},
-            {"feature": "Количество SIM-карт", "value": "1 + eSIM"},
-            {"feature": "Материал корпуса", "value": "Металл и стекло"},
-            {"feature": "Диагональ дисплея, Дюйм", "value": "6.7"},
-            {"feature": "Процессор", "value": "Apple A17 Pro"}
-        ]
-    },
-    {
-        "id": "3",
-        "title": "Смартфон Apple iPhone 15 Pro Max 256Gb Natural Titanium (1 sim + eSIM) официально замененный в АСЦ",
-        "price": "120000",
-        "status": "true",
-        "productType": "Phone",
-        "towarImages": [
-            {"src": "./img/towars/iphone.png"},
-            {"src": "./img/towars/two.jpeg"},
-            {"src": "./img/towars/three.jpeg"},
-            {"src": "./img/towars/four.jpeg"}
-        ],
-        "features":[
-            {"feature": "Цвет", "value": "Титан"},
-            {"feature": "Встроенная память, Гб", "value": "256 Гб"},
-            {"feature": "Количество SIM-карт", "value": "1 + eSIM"},
-            {"feature": "Материал корпуса", "value": "Металл и стекло"},
-            {"feature": "Диагональ дисплея, Дюйм", "value": "6.7"},
-            {"feature": "Процессор", "value": "Apple A17 Pro"}
-        ]
-    },
-    {
-        "id": "4",
-        "title": "Ноутбук ASUS TUF Gaming F15 15.6 FX506HF-HN017 черный",
-        "price": "73990",
-        "status": "true",
-        "productType": "Laptop",
-        "towarImages": [
-            {"src": "./img/towars/laptop.jpg"}
-        ],
-        "features":[
-            {"feature": "Цвет", "value": "Серый"},
-            {"feature": "Встроенная память, Гб", "value": "512 Гб"},
-            {"feature": "Материал корпуса", "value": "Пластик"},
-            {"feature": "Диагональ дисплея, Дюйм", "value": "15.6"},
-            {"feature": "Процессор", "value": "Intel Core i5-11400H"},
-            {"feature": "Разрешение дисплея", "value": "1920x1080"}
-        ]
-    },
-    {
-        "id": "5",
-        "title": "Умные часы Smart Watch M16 Mini Белый",
-        "price": "2990",
-        "status": "true",
-        "productType": "Watch",
-        "towarImages": [
-            {"src": "./img/towars/watch.png"}
-        ]
-    }
-]
+{
+    "towars":[
+        {
+            "id": "1",
+            "title": "Смартфон Apple iPhone 15 Pro Max 256Gb Natural Titanium (1 sim + eSIM) официально замененный в АСЦ",
+            "price": "100000",
+            "status": "true",
+            "productType": "Phone",
+            "towarImages": [
+                {"src": "./img/towars/iphone.png"},
+                {"src": "./img/towars/two.jpeg"},
+                {"src": "./img/towars/three.jpeg"},
+                {"src": "./img/towars/four.jpeg"}
+            ],
+            "features":[
+                {"feature": "Цвет", "value": "Титан"},
+                {"feature": "Встроенная память, Гб", "value": "256 Гб"},
+                {"feature": "Количество SIM-карт", "value": "1 + eSIM"},
+                {"feature": "Материал корпуса", "value": "Металл и стекло"},
+                {"feature": "Диагональ дисплея, Дюйм", "value": "6.7"},
+                {"feature": "Процессор", "value": "Apple A17 Pro"}
+            ]
+        },
+        {
+            "id": "2",
+            "title": "Смартфон Apple iPhone 15 Pro Max 256Gb Natural Titanium (1 sim + eSIM) официально замененный в АСЦ",
+            "price": "110000",
+            "status": "false",
+            "productType": "Phone",
+            "towarImages": [
+                {"src": "./img/towars/iphone.png"},
+                {"src": "./img/towars/two.jpeg"},
+                {"src": "./img/towars/three.jpeg"},
+                {"src": "./img/towars/four.jpeg"}
+            ],
+            "features":[
+                {"feature": "Цвет", "value": "Титан"},
+                {"feature": "Встроенная память, Гб", "value": "256 Гб"},
+                {"feature": "Количество SIM-карт", "value": "1 + eSIM"},
+                {"feature": "Материал корпуса", "value": "Металл и стекло"},
+                {"feature": "Диагональ дисплея, Дюйм", "value": "6.7"},
+                {"feature": "Процессор", "value": "Apple A17 Pro"}
+            ]
+        },
+        {
+            "id": "3",
+            "title": "Смартфон Apple iPhone 15 Pro Max 256Gb Natural Titanium (1 sim + eSIM) официально замененный в АСЦ",
+            "price": "120000",
+            "status": "true",
+            "productType": "Phone",
+            "towarImages": [
+                {"src": "./img/towars/iphone.png"},
+                {"src": "./img/towars/two.jpeg"},
+                {"src": "./img/towars/three.jpeg"},
+                {"src": "./img/towars/four.jpeg"}
+            ],
+            "features":[
+                {"feature": "Цвет", "value": "Титан"},
+                {"feature": "Встроенная память, Гб", "value": "256 Гб"},
+                {"feature": "Количество SIM-карт", "value": "1 + eSIM"},
+                {"feature": "Материал корпуса", "value": "Металл и стекло"},
+                {"feature": "Диагональ дисплея, Дюйм", "value": "6.7"},
+                {"feature": "Процессор", "value": "Apple A17 Pro"}
+            ]
+        },
+        {
+            "id": "4",
+            "title": "Ноутбук ASUS TUF Gaming F15 15.6 FX506HF-HN017 черный",
+            "price": "73990",
+            "status": "true",
+            "productType": "Laptop",
+            "towarImages": [
+                {"src": "./img/towars/laptop.jpg"}
+            ],
+            "features":[
+                {"feature": "Цвет", "value": "Серый"},
+                {"feature": "Встроенная память, Гб", "value": "512 Гб"},
+                {"feature": "Материал корпуса", "value": "Пластик"},
+                {"feature": "Диагональ дисплея, Дюйм", "value": "15.6"},
+                {"feature": "Процессор", "value": "Intel Core i5-11400H"},
+                {"feature": "Разрешение дисплея", "value": "1920x1080"}
+            ]
+        },
+        {
+            "id": "5",
+            "title": "Умные часы Smart Watch M16 Mini Белый",
+            "price": "2990",
+            "status": "true",
+            "productType": "Watch",
+            "towarImages": [
+                {"src": "./img/towars/watch.png"}
+            ]
+        }
+    ],
+    "filters":[
+        {
+            "type": "Phone",
+            "filterArray":[
+                {
+                    "nameType": "Цвет",
+                    "allTypes":[
+                        {"value": "Черный"},
+                        {"value": "Белый"},
+                        {"value": "Синий"},
+                        {"value": "Титан"}
+                    ]
+                },
+                {
+                    "nameType": "Встроенная память гб",
+                    "allTypes":[
+                        {"value": "256 гб"},
+                        {"value": "512 гб"},
+                        {"value": "1 тб"}
+                    ]
+                },
+                {
+                    "nameType": "Количество SIM-карт",
+                    "allTypes":[
+                        {"value": "2"},
+                        {"value": "1 + eSim"},
+                        {"value": "eSim"}
+                    ]
+                },
+                {
+                    "nameType": "Диоганаль дисплея,Дюйм",
+                    "allTypes":[
+                        {"value": "6.1"},
+                        {"value": "6.7"},
+                        {"value": "eSim"}
+                    ]
+                }
+            ]
+            
+        },
+        {
+            "type": "Laptop",
+            "filterArray":[
+                {
+                    "nameType": "Цвет",
+                    "allTypes":[
+                        {"value": "Черный"},
+                        {"value": "Белый"},
+                        {"value": "Синий"},
+                        {"value": "Титан"}
+                    ]
+                },
+                {
+                    "nameType": "Встроенная память гб",
+                    "allTypes":[
+                        {"value": "256 гб"},
+                        {"value": "512 гб"},
+                        {"value": "1 тб"}
+                    ]
+                },
+                {
+                    "nameType": "Диоганаль дисплея,Дюйм",
+                    "allTypes":[
+                        {"value": "6.1"},
+                        {"value": "6.7"},
+                        {"value": "eSim"}
+                    ]
+                }
+            ]
+            
+        }
+    ]
+}

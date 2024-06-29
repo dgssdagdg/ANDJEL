@@ -1223,7 +1223,7 @@ input:disabled + label:before {
     grid-column-start: span 12;
   }
 }
-.characteristic {
+._hidden-pop-up {
   position: fixed;
   overflow-y: auto;
   display: -ms-grid;
@@ -1366,6 +1366,87 @@ input:disabled + label:before {
     height: 20px;
   }
 }
+.request-call.active {
+  opacity: 1;
+  visibility: visible;
+  -webkit-transition: all 0.4s ease 0s;
+  transition: all 0.4s ease 0s;
+}
+
+.request-call-row {
+  width: 580px;
+  padding: 55px 60px;
+  background-color: white;
+  position: relative;
+  border-radius: 10px;
+}
+
+.request-call-title {
+  color: #333;
+  font-size: 35px;
+  font-weight: 700;
+  line-height: 1.126em;
+  margin-bottom: 29px;
+}
+
+.request-call-inputs {
+  margin-bottom: 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  row-gap: 25px;
+}
+
+.request-input {
+  width: 100%;
+  height: 48px;
+  padding: 8px 13px 7px;
+  background: #fafafa;
+  border: 1px solid #ececec;
+  border-radius: 3px;
+  color: #383838;
+  font-size: 14px;
+}
+
+.request-call-input-title {
+  font-size: 13px;
+  color: #888;
+  font-weight: 400;
+  line-height: 18.5714px;
+  margin-bottom: 6px;
+}
+
+.request-call-btn {
+  height: 46px;
+  padding: 0 26px;
+  background-color: rgb(255, 229, 0);
+  color: rgb(0, 0, 0);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 120%;
+  -webkit-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
+}
+.request-call-btn:hover {
+  background-color: black;
+  color: rgb(255, 229, 0);
+  -webkit-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
+}
+
+.request-call-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  z-index: 1;
+  cursor: pointer;
+  padding: 5px;
+}
+
 .footer {
   padding: 51px 0 55px;
   background: rgb(51, 51, 51);

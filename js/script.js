@@ -60,6 +60,22 @@ document.addEventListener('click', function(e) {
       charectersMenu.classList.toggle('active');
       html.classList.toggle('_overflow');
       addCharecters(e.target.parentNode.getAttribute('id'))
+      if(html.classList.contains('_overflow')) {
+        document.body.style.paddingRight = `${widthScroll()}px`;
+      } else {document.body.style.paddingRight = `${0}px`;}
+    }
+
+    //
+    let form = document.querySelector('.request-call');
+    let formInputs = document.querySelectorAll('.request-input');
+    if(e.target.closest('.header-right-btn') || e.target.closest('.request-call-close') ||
+    e.target.closest('.request-call') && !e.target.closest('.request-call-row')) {
+      [...formInputs].forEach(item => item.value = '')
+      form.classList.toggle('active');
+      html.classList.toggle('_overflow');
+      if(html.classList.contains('_overflow')) {
+        document.body.style.paddingRight = `${widthScroll()}px`;
+      } else {document.body.style.paddingRight = `${0}px`;}
     }
 });
 const swiper = new Swiper('.intro-sliders', {
@@ -88,18 +104,27 @@ async function fetchData(type, typeProduct) {
           throw new Error('Network response was not ok ' + response.statusText);
       }
 
-      // Преобразуем содержимое в JSON-формат
+      // Преобразуем содержимое в JSON-форма
       const data = await response.json();
-      const dataFilter = data.filter(function(item) {
+      const dataTowars = data.towars;
+      const dataFilters = data.filters;
+      //Получение масива профильтрованных по Типу товара
+      const dataFiltersArry = dataFilters.filter(function(item) {
+        return item.type == typeProduct
+      });
+      //Получение масива профильтрованных по Типу товара
+      const dataFilterTowar = dataTowars.filter(function(item) {
         return item.productType == typeProduct
       });
+      //Получение масива сартированых по цене
       if(type == 'По цене (убыванию)') {
-        dataFilter.sort((a, b) => b.price - a.price);
-      } else if (type == 'По цене (возрастание)') {dataFilter.sort((a, b) => a.price - b.price);}
+        dataFilterTowar.sort((a, b) => b.price - a.price);
+      } else if (type == 'По цене (возрастание)') {dataFilterTowar.sort((a, b) => a.price - b.price);}
 
       // Выводим данные в консоль или используем их по назначению
-      globalData = dataFilter
-      loadTowars(dataFilter);
+      globalData = dataFilterTowar
+      loadFilter(dataFiltersArry[0].filterArray);
+      loadTowars(dataFilterTowar);
   } catch (error) {
       // Обрабатываем ошибки
       console.error('There has been a problem with your fetch operation:', error);
@@ -160,6 +185,7 @@ function loadTowars(data) {
   })
   let colvoTowar = document.querySelector('.catalog-top-colvo');
   colvoTowar.textContent = `${data.length} товаров`
+
   //Функция для слайдера в товарах---------------------------------------------------------------
   let allNavigations = document.querySelectorAll('.towar-slide-navigation');
 
@@ -182,6 +208,43 @@ function loadTowars(data) {
     })
   });
 }
+//Подгрузка Фильтра---------------------------------------------------------
+function loadFilter(filterData) {
+  const filterContainer = document.querySelector('.catalog-filter-body');
+  filterContainer.innerHTML = ''
+  let filterHtml = '';
+  filterData.forEach(item => {
+    filterHtml += `
+      <div class="catalog-filter-block catalog-filter-border">
+        <div class="catalog-filter-open _df-flex _hidden-open _hidden-active-arrow">
+            ${item.nameType}
+            <span>
+                <svg width="12.000000" height="7.200012" viewBox="0 0 12 7.20001" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <desc>
+                            Created with Pixso.
+                    </desc>
+                    <defs/>
+                    <path id="Vector" d="M1.4 0L6 4.45L10.59 0L12 1.37L6 7.2L0 1.37L1.4 0Z" fill="#000000" fill-opacity="1.000000" fill-rule="nonzero"/>
+                </svg>
+            </span>
+        </div>
+        <div class="catalog-filter-items _hidden _hidden-active">
+    `;
+    item.allTypes.forEach(element => {
+      filterHtml += `
+        <div class="catalog-filter-item">
+            <input type="checkbox" id="${element.value}" />
+            <label for="${element.value}">${element.value}</label>
+        </div>
+      `
+    })
+    filterHtml += `
+                </div>
+      </div>
+    `
+  })
+  filterContainer.insertAdjacentHTML('beforeend', filterHtml);
+}
 //Подгруска характеристик товара----------------------------------------------------------
 let charectersContainer = document.querySelector('.characteristic-items');
 function addCharecters(id) {
@@ -197,4 +260,16 @@ function addCharecters(id) {
     `
   })
   charectersContainer.insertAdjacentHTML('beforeend', charectersHtml);
+}
+//Узнаем ширину скролбара-------------------------------
+function widthScroll(){
+  var div = document.createElement('div');
+  div.style.overflowY = 'scroll';
+  div.style.width = '50px';
+  div.style.height = '50px';
+  div.style.visibility = 'hidden';
+  document.body.appendChild(div);
+  var scrollWidth = div.offsetWidth - div.clientWidth;
+  document.body.removeChild(div);
+  return scrollWidth;
 }

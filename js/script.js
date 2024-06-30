@@ -97,8 +97,8 @@ let globalData = [];
 async function fetchData(type, typeProduct) {
   try {
       // Загружаем JSON-файл
-      const response = await fetch('../json/towarData.json');
-
+      // const response = await fetch('../json/towarData.json');
+      const response = await fetch('https://raw.githubusercontent.com/dgssdagdg/ANDJEL/main/json/towarData.json');
       // Проверяем, успешен ли запрос
       if (!response.ok) {
           throw new Error('Network response was not ok ' + response.statusText);
@@ -106,6 +106,7 @@ async function fetchData(type, typeProduct) {
 
       // Преобразуем содержимое в JSON-форма
       const data = await response.json();
+      console.log(data);
       const dataTowars = data.towars;
       const dataFilters = data.filters;
       //Получение масива профильтрованных по Типу товара

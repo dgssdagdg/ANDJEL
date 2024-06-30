@@ -1,5 +1,29 @@
+//Все важные переменые---------------------------------------------
 let sortType = 'По цене (убыванию)';
 let ProdyctType = 'Phone';
+let items = [...document.querySelectorAll('.catalog-rigth-towar')];
+let totalTowar = 2;
+//Функция для закрытия менюшки------------------------------------
+function closeMenuAndButton() {
+  let menuBtn = document.querySelector('.menu-btn');
+  let menu = document.querySelector('.menu');
+  const html = document.documentElement;
+  menuBtn.classList.remove('active');
+  menu.classList.remove('active');
+  html.classList.remove('_overflow');
+}
+//Функция для открытия и закрытия формы
+function closeOpenForm() {
+  let form = document.querySelector('.request-call');
+  let formInputs = document.querySelectorAll('.request-input');
+  const html = document.documentElement;
+  [...formInputs].forEach(item => item.value = '')
+  form.classList.toggle('active');
+  html.classList.toggle('_overflow');
+  if(html.classList.contains('_overflow')) {
+    document.body.style.paddingRight = `${widthScroll()}px`;
+  } else {document.body.style.paddingRight = `${0}px`;}
+}
 document.addEventListener('click', function(e) {
     // Работа с бургер меню-------------------------------------------------------------------------
     let menuBtn = document.querySelector('.menu-btn');
@@ -10,9 +34,7 @@ document.addEventListener('click', function(e) {
         menu.classList.toggle('active');
         html.classList.toggle('_overflow');
     } else if(e.target.closest('.menu') && !e.target.closest('.menu-row')) {
-        menuBtn.classList.remove('active');
-        menu.classList.remove('active');
-        html.classList.remove('_overflow');
+      closeMenuAndButton()
     };
 
     //Работа с Открытием фильтра---------------------------------------------------
@@ -65,18 +87,46 @@ document.addEventListener('click', function(e) {
       } else {document.body.style.paddingRight = `${0}px`;}
     }
 
-    //
+    //Открытие формы и закрытие ее------------------------------------------------------
     let form = document.querySelector('.request-call');
     let formInputs = document.querySelectorAll('.request-input');
-    if(e.target.closest('.header-right-btn') || e.target.closest('.request-call-close') ||
-    e.target.closest('.request-call') && !e.target.closest('.request-call-row')) {
-      [...formInputs].forEach(item => item.value = '')
-      form.classList.toggle('active');
-      html.classList.toggle('_overflow');
-      if(html.classList.contains('_overflow')) {
-        document.body.style.paddingRight = `${widthScroll()}px`;
-      } else {document.body.style.paddingRight = `${0}px`;}
+    if(e.target.closest('.header-right-btn')) {
+      if(menu.classList.contains('active')) { closeMenuAndButton() }
+      closeOpenForm()
     }
+    if(e.target.closest('.request-call-close') || e.target.closest('.request-call') && !e.target.closest('.request-call-row')) {
+      closeOpenForm()
+    }
+
+    //Активация функция после клика по чекбоксу 
+    if(e.target.closest('.catalog-filter-item [type=checkbox]')) {
+      workFilter();
+    }
+    
+});
+//Якорные сылка для прокрутки до блоков-------------------------------------------------
+document.querySelectorAll('a[href^="#"').forEach(link => {
+  link.addEventListener('click', function(e) {
+      e.preventDefault();
+
+      let href = this.getAttribute('href').substring(1);
+
+      const scrollTarget = document.getElementById(href);
+
+      const topOffset = document.querySelector('.header-nav').offsetHeight;
+      // const topOffset = 0; // если не нужен отступ сверху 
+      const elementPosition = scrollTarget.getBoundingClientRect().top;
+      const offsetPosition = elementPosition - topOffset;
+
+      let menu = document.querySelector('.menu');
+      if(menu.classList.contains('active')) {
+        closeMenuAndButton()
+      }
+      window.scrollBy({
+          top: offsetPosition,
+          behavior: 'smooth'
+      });
+  });
 });
 const swiper = new Swiper('.intro-sliders', {
     loop: true,
@@ -106,26 +156,27 @@ async function fetchData(type, typeProduct) {
 
       // Преобразуем содержимое в JSON-форма
       const data = await response.json();
-      console.log(data);
       const dataTowars = data.towars;
       const dataFilters = data.filters;
-      //Получение масива профильтрованных по Типу товара
+
+      //Получение масива фильтра
       const dataFiltersArry = dataFilters.filter(function(item) {
         return item.type == typeProduct
       });
+
       //Получение масива профильтрованных по Типу товара
       const dataFilterTowar = dataTowars.filter(function(item) {
         return item.productType == typeProduct
       });
+
       //Получение масива сартированых по цене
       if(type == 'По цене (убыванию)') {
         dataFilterTowar.sort((a, b) => b.price - a.price);
       } else if (type == 'По цене (возрастание)') {dataFilterTowar.sort((a, b) => a.price - b.price);}
-
       // Выводим данные в консоль или используем их по назначению
       globalData = dataFilterTowar
       loadFilter(dataFiltersArry[0].filterArray);
-      loadTowars(dataFilterTowar);
+      loadTowars(dataFilterTowar.reverse());
   } catch (error) {
       // Обрабатываем ошибки
       console.error('There has been a problem with your fetch operation:', error);
@@ -133,11 +184,16 @@ async function fetchData(type, typeProduct) {
 }
 fetchData(sortType, ProdyctType);
 
+function clicks() {
+  totalTowar = totalTowar + 2
+  fetchData(sortType, ProdyctType)
+}
 //Подгрузка товаров---------------------------------------------------------------
 function loadTowars(data) {
   const towarContainer = document.querySelector('.catalog-rigth-towars');
   towarContainer.innerHTML = ''
-  data.forEach(item => {
+  console.log(totalTowar);
+  data.slice(0, totalTowar).forEach(item => {
     let towarStartBlock = `<div id="${item.id}" class="catalog-rigth-towar towar">`;
     let TowarEndBlock = `</div>`
     let towarContentBlock = `
@@ -186,10 +242,8 @@ function loadTowars(data) {
   })
   let colvoTowar = document.querySelector('.catalog-top-colvo');
   colvoTowar.textContent = `${data.length} товаров`
-
   //Функция для слайдера в товарах---------------------------------------------------------------
   let allNavigations = document.querySelectorAll('.towar-slide-navigation');
-
   [...allNavigations].forEach(function(item) {
     item.addEventListener('mouseenter', function(e) {
       let activeItem = e.target.closest('.towar-slide');
@@ -233,7 +287,7 @@ function loadFilter(filterData) {
     `;
     item.allTypes.forEach(element => {
       filterHtml += `
-        <div class="catalog-filter-item">
+        <div data-itemtype="${item.nameType}" class="catalog-filter-item">
             <input type="checkbox" id="${element.value}" />
             <label for="${element.value}">${element.value}</label>
         </div>
@@ -273,4 +327,35 @@ function widthScroll(){
   var scrollWidth = div.offsetWidth - div.clientWidth;
   document.body.removeChild(div);
   return scrollWidth;
+}
+//
+function workFilter() {
+  let filterItem = document.querySelectorAll('.catalog-filter-item');
+  //Получаем масив с отмечиными чек-боксами-----------------------
+  let chekedItems = [...filterItem].filter(item => {
+    if (item.querySelector('input').checked) {
+      return item
+    }
+  })
+  //Создаем масив с параметрами чекбокса для дальнейшей фильрации
+  let dataFilterCharecters = [];
+  chekedItems.forEach(item => {
+    let dataPush = {
+      type: item.dataset.itemtype,
+      value: item.querySelector('label').textContent,
+    }
+    dataFilterCharecters.push(dataPush);
+  })
+  //Фильтруем масив сравниевая параметры товара с параметрами чекбокса
+  let dataFilterTowars = globalData.filter(item => {
+    let counter = 0;
+    dataFilterCharecters.forEach(element => {
+      let itemFeatures = item.features.find(i => i.feature === element.type)
+      if(itemFeatures.value.toUpperCase() == element.value.toUpperCase()){counter++}
+    })
+    return counter > 0
+  })
+  if(chekedItems.length > 0){
+    loadTowars(dataFilterTowars);
+  } else {loadTowars(globalData);}
 }

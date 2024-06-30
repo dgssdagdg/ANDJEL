@@ -52,6 +52,7 @@ button::-moz-focus-inner {
 
 a, a:visited {
   text-decoration: none;
+  color: initial;
 }
 
 a:hover {
@@ -73,6 +74,7 @@ h1, h2, h3, h4, h5, h6 {
 
 body {
   font-family: Inter;
+  color: #000;
 }
 
 ._df-flex {
@@ -133,7 +135,6 @@ body {
 }
 
 .header-link {
-  color: rgb(0, 0, 0);
   font-size: 20px;
   font-weight: 500;
   line-height: 120%;
@@ -153,7 +154,6 @@ body {
 }
 
 .header-right-tell {
-  color: rgb(0, 0, 0);
   font-size: 20px;
   font-weight: 400;
   line-height: 120%;
@@ -170,7 +170,6 @@ body {
 }
 
 .header-right-btn {
-  color: rgb(0, 0, 0);
   font-size: 20px;
   font-weight: 500;
   line-height: 120%;
@@ -207,7 +206,7 @@ body {
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
-  background: #020f59;
+  background: #000;
   -webkit-transition: all 0.5s ease;
   transition: all 0.5s ease;
 }
@@ -377,7 +376,6 @@ body {
   height: 46px;
   padding: 0 26px;
   background-color: rgb(255, 229, 0);
-  color: rgb(0, 0, 0);
   font-size: 20px;
   font-weight: 600;
   line-height: 120%;
@@ -563,14 +561,12 @@ body {
 }
 
 ._title {
-  color: rgb(0, 0, 0);
   font-size: 70px;
   font-weight: 500;
   line-height: 85px;
 }
 
 .about-us-text {
-  color: rgb(0, 0, 0);
   font-size: 20px;
   font-weight: 500;
   line-height: 145%;
@@ -635,7 +631,6 @@ body {
 }
 
 .catalog-top-view {
-  color: rgb(0, 0, 0);
   font-size: 40px;
   font-weight: 300;
   line-height: 120%;
@@ -659,7 +654,6 @@ body {
 
 .catalog-top-type {
   cursor: pointer;
-  color: rgb(0, 0, 0);
   font-size: 20px;
   font-weight: 400;
   line-height: 120%;
@@ -711,7 +705,6 @@ body {
   -webkit-column-gap: 16px;
      -moz-column-gap: 16px;
           column-gap: 16px;
-  color: rgb(0, 0, 0);
   font-size: 20px;
   font-weight: 400;
   line-height: 120%;
@@ -728,7 +721,6 @@ body {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  color: rgb(0, 0, 0);
   font-size: 16px;
   font-weight: 400;
   line-height: 118.75%;
@@ -763,7 +755,6 @@ input[type=checkbox] {
 label {
   width: 100%;
   vertical-align: middle;
-  color: rgb(0, 0, 0);
   font-size: 15px;
   font-weight: 400;
   line-height: 18px;
@@ -869,7 +860,6 @@ input:disabled + label:before {
   -webkit-column-gap: 26px;
      -moz-column-gap: 26px;
           column-gap: 26px;
-  color: rgb(0, 0, 0);
   font-size: 15px;
   font-weight: 400;
   line-height: 120%;
@@ -905,7 +895,6 @@ input:disabled + label:before {
 .catalog-rigth-select-type {
   display: block;
   cursor: pointer;
-  color: rgb(0, 0, 0);
   font-size: 15px;
   font-weight: 400;
   line-height: 120%;
@@ -1044,7 +1033,6 @@ input:disabled + label:before {
   -webkit-box-flex: 1;
       -ms-flex: 1 1 100%;
           flex: 1 1 100%;
-  color: rgb(0, 0, 0);
   font-size: 15px;
   font-weight: 500;
   line-height: 146.6666666667%;
@@ -1063,7 +1051,6 @@ input:disabled + label:before {
 }
 
 .towar-content-price {
-  color: rgb(0, 0, 0);
   font-size: 15px;
   font-weight: 400;
   line-height: 120%;
@@ -1263,7 +1250,6 @@ input:disabled + label:before {
 }
 
 .characteristic-title {
-  color: rgb(0, 0, 0);
   font-size: 50px;
   font-weight: 500;
   line-height: 122%;
@@ -1424,7 +1410,6 @@ input:disabled + label:before {
   height: 46px;
   padding: 0 26px;
   background-color: rgb(255, 229, 0);
-  color: rgb(0, 0, 0);
   font-size: 20px;
   font-weight: 600;
   line-height: 120%;
@@ -1447,6 +1432,22 @@ input:disabled + label:before {
   padding: 5px;
 }
 
+@media (max-width: 767px) {
+  .request-call-row {
+    width: 100%;
+    padding: 25px 20px;
+  }
+  .request-call-close {
+    top: 10px;
+    right: 10px;
+  }
+  .request-call {
+    -webkit-box-pack: stretch;
+        -ms-flex-pack: stretch;
+            justify-content: stretch;
+    padding: 20px 20px;
+  }
+}
 .footer {
   padding: 51px 0 55px;
   background: rgb(51, 51, 51);
@@ -1490,7 +1491,7 @@ input:disabled + label:before {
 }
 
 .footer-link {
-  color: rgb(186, 186, 186);
+  color: rgb(186, 186, 186) !important;
   font-size: 20px;
   font-weight: 500;
   line-height: 120%;

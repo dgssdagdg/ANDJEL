@@ -23,18 +23,15 @@
         },
         {
             "id": "2",
-            "title": "Смартфон Apple iPhone 15 Pro Max 256Gb Natural Titanium (1 sim + eSIM) официально замененный в АСЦ",
-            "price": "110000",
-            "status": "false",
+            "title": "Смартфон Apple iPhone 15 Pro Max 256Gb Blue Titanium (1 sim + eSIM)",
+            "price": "107690",
+            "status": "true",
             "productType": "Phone",
             "towarImages": [
-                {"src": "./img/towars/iphone.png"},
-                {"src": "./img/towars/two.jpeg"},
-                {"src": "./img/towars/three.jpeg"},
-                {"src": "./img/towars/four.jpeg"}
+                {"src": "./img/towars/phone-blue.jpeg"}
             ],
             "features":[
-                {"feature": "Цвет", "value": "Титан"},
+                {"feature": "Цвет", "value": "Синий"},
                 {"feature": "Встроенная память, Гб", "value": "256 Гб"},
                 {"feature": "Количество SIM-карт", "value": "1 + eSIM"},
                 {"feature": "Материал корпуса", "value": "Металл и стекло"},
@@ -44,18 +41,15 @@
         },
         {
             "id": "3",
-            "title": "Смартфон Apple iPhone 15 Pro Max 256Gb Natural Titanium (1 sim + eSIM) официально замененный в АСЦ",
-            "price": "120000",
-            "status": "true",
+            "title": "Смартфон Apple iPhone 15 Pro Max 512Gb White Titanium (1 sim + eSIM)",
+            "price": "124690",
+            "status": "false",
             "productType": "Phone",
             "towarImages": [
-                {"src": "./img/towars/iphone.png"},
-                {"src": "./img/towars/two.jpeg"},
-                {"src": "./img/towars/three.jpeg"},
-                {"src": "./img/towars/four.jpeg"}
+                {"src": "./img/towars/phone-white.jpeg"}
             ],
             "features":[
-                {"feature": "Цвет", "value": "Титан"},
+                {"feature": "Цвет", "value": "Белый"},
                 {"feature": "Встроенная память, Гб", "value": "256 Гб"},
                 {"feature": "Количество SIM-карт", "value": "1 + eSIM"},
                 {"feature": "Материал корпуса", "value": "Металл и стекло"},
@@ -65,6 +59,24 @@
         },
         {
             "id": "4",
+            "title": "Смартфон Apple iPhone 15 Pro Max 256Gb Black Titanium (1 sim + eSIM)",
+            "price": "120000",
+            "status": "true",
+            "productType": "Phone",
+            "towarImages": [
+                {"src": "./img/towars/phone-black.jpeg"}
+            ],
+            "features":[
+                {"feature": "Цвет", "value": "Чёрный"},
+                {"feature": "Встроенная память, Гб", "value": "256 Гб"},
+                {"feature": "Количество SIM-карт", "value": "1 + eSIM"},
+                {"feature": "Материал корпуса", "value": "Металл и стекло"},
+                {"feature": "Диагональ дисплея, Дюйм", "value": "6.7"},
+                {"feature": "Процессор", "value": "Apple A17 Pro"}
+            ]
+        },
+        {
+            "id": "5",
             "title": "Ноутбук ASUS TUF Gaming F15 15.6 FX506HF-HN017 черный",
             "price": "73990",
             "status": "true",
@@ -82,7 +94,7 @@
             ]
         },
         {
-            "id": "5",
+            "id": "6",
             "title": "Умные часы Smart Watch M16 Mini Белый",
             "price": "2990",
             "status": "true",
@@ -99,14 +111,14 @@
                 {
                     "nameType": "Цвет",
                     "allTypes":[
-                        {"value": "Черный"},
+                        {"value": "Чёрный"},
                         {"value": "Белый"},
                         {"value": "Синий"},
                         {"value": "Титан"}
                     ]
                 },
                 {
-                    "nameType": "Встроенная память гб",
+                    "nameType": "Встроенная память, Гб",
                     "allTypes":[
                         {"value": "256 гб"},
                         {"value": "512 гб"},
@@ -122,11 +134,10 @@
                     ]
                 },
                 {
-                    "nameType": "Диоганаль дисплея,Дюйм",
+                    "nameType": "Диагональ дисплея, Дюйм",
                     "allTypes":[
                         {"value": "6.1"},
-                        {"value": "6.7"},
-                        {"value": "eSim"}
+                        {"value": "6.7"}
                     ]
                 }
             ]
@@ -138,14 +149,14 @@
                 {
                     "nameType": "Цвет",
                     "allTypes":[
-                        {"value": "Черный"},
+                        {"value": "Чёрный"},
                         {"value": "Белый"},
                         {"value": "Синий"},
                         {"value": "Титан"}
                     ]
                 },
                 {
-                    "nameType": "Встроенная память гб",
+                    "nameType": "Встроенная память, Гб",
                     "allTypes":[
                         {"value": "256 гб"},
                         {"value": "512 гб"},
@@ -153,11 +164,26 @@
                     ]
                 },
                 {
-                    "nameType": "Диоганаль дисплея,Дюйм",
+                    "nameType": "Диагональ дисплея, Дюйм",
                     "allTypes":[
                         {"value": "6.1"},
                         {"value": "6.7"},
                         {"value": "eSim"}
+                    ]
+                }
+            ]
+            
+        },
+        {
+            "type": "Watch",
+            "filterArray":[
+                {
+                    "nameType": "Цвет",
+                    "allTypes":[
+                        {"value": "Чёрный"},
+                        {"value": "Белый"},
+                        {"value": "Синий"},
+                        {"value": "Титан"}
                     ]
                 }
             ]

@@ -76,6 +76,100 @@
             ]
         },
         {
+            "id": "7",
+            "title": "Смартфон Apple iPhone 15 Pro Max 256Gb Natural Titanium (1 sim + eSIM) официально замененный в АСЦ",
+            "price": "100000",
+            "status": "true",
+            "productType": "Phone",
+            "towarImages": [
+                {"src": "./img/towars/iphone.png"},
+                {"src": "./img/towars/two.jpeg"},
+                {"src": "./img/towars/three.jpeg"},
+                {"src": "./img/towars/four.jpeg"}
+            ],
+            "features":[
+                {"feature": "Цвет", "value": "Титан"},
+                {"feature": "Встроенная память, Гб", "value": "256 Гб"},
+                {"feature": "Количество SIM-карт", "value": "1 + eSIM"},
+                {"feature": "Материал корпуса", "value": "Металл и стекло"},
+                {"feature": "Диагональ дисплея, Дюйм", "value": "6.7"},
+                {"feature": "Процессор", "value": "Apple A17 Pro"}
+            ]
+        },
+        {
+            "id": "8",
+            "title": "Смартфон Apple iPhone 15 Pro Max 256Gb Blue Titanium (1 sim + eSIM)",
+            "price": "107690",
+            "status": "true",
+            "productType": "Phone",
+            "towarImages": [
+                {"src": "./img/towars/phone-blue.jpeg"}
+            ],
+            "features":[
+                {"feature": "Цвет", "value": "Синий"},
+                {"feature": "Встроенная память, Гб", "value": "256 Гб"},
+                {"feature": "Количество SIM-карт", "value": "1 + eSIM"},
+                {"feature": "Материал корпуса", "value": "Металл и стекло"},
+                {"feature": "Диагональ дисплея, Дюйм", "value": "6.7"},
+                {"feature": "Процессор", "value": "Apple A17 Pro"}
+            ]
+        },
+        {
+            "id": "9",
+            "title": "Смартфон Apple iPhone 15 Pro Max 512Gb White Titanium (1 sim + eSIM)",
+            "price": "124690",
+            "status": "false",
+            "productType": "Phone",
+            "towarImages": [
+                {"src": "./img/towars/phone-white.jpeg"}
+            ],
+            "features":[
+                {"feature": "Цвет", "value": "Белый"},
+                {"feature": "Встроенная память, Гб", "value": "256 Гб"},
+                {"feature": "Количество SIM-карт", "value": "1 + eSIM"},
+                {"feature": "Материал корпуса", "value": "Металл и стекло"},
+                {"feature": "Диагональ дисплея, Дюйм", "value": "6.7"},
+                {"feature": "Процессор", "value": "Apple A17 Pro"}
+            ]
+        },
+        {
+            "id": "10",
+            "title": "Смартфон Apple iPhone 15 Pro Max 256Gb Black Titanium (1 sim + eSIM)",
+            "price": "120000",
+            "status": "true",
+            "productType": "Phone",
+            "towarImages": [
+                {"src": "./img/towars/phone-black.jpeg"}
+            ],
+            "features":[
+                {"feature": "Цвет", "value": "Чёрный"},
+                {"feature": "Встроенная память, Гб", "value": "256 Гб"},
+                {"feature": "Количество SIM-карт", "value": "1 + eSIM"},
+                {"feature": "Материал корпуса", "value": "Металл и стекло"},
+                {"feature": "Диагональ дисплея, Дюйм", "value": "6.7"},
+                {"feature": "Процессор", "value": "Apple A17 Pro"}
+            ]
+        },
+        {
+            "id": "11",
+            "title": "Смартфон Apple iPhone 15 Pro Max 256Gb Black Titanium (1 sim + eSIM)",
+            "price": "120000",
+            "status": "true",
+            "productType": "Phone",
+            "towarImages": [
+                {"src": "./img/towars/phone-black.jpeg"}
+            ],
+            "features":[
+                {"feature": "Цвет", "value": "Чёрный"},
+                {"feature": "Встроенная память, Гб", "value": "256 Гб"},
+                {"feature": "Количество SIM-карт", "value": "1 + eSIM"},
+                {"feature": "Материал корпуса", "value": "Металл и стекло"},
+                {"feature": "Диагональ дисплея, Дюйм", "value": "6.7"},
+                {"feature": "Процессор", "value": "Apple A17 Pro"}
+            ]
+        },
+
+        {
             "id": "5",
             "title": "Ноутбук ASUS TUF Gaming F15 15.6 FX506HF-HN017 черный",
             "price": "73990",
@@ -101,6 +195,9 @@
             "productType": "Watch",
             "towarImages": [
                 {"src": "./img/towars/watch.png"}
+            ],
+            "features":[
+                {"feature": "Цвет", "value": "Белый"}
             ]
         }
     ],
@@ -188,6 +285,58 @@
                 }
             ]
             
+        }
+    ],
+    "catalogTypes":[
+        {"value": "Смартфоны", "type": "Phone"},
+        {"value": "Ноутбуки", "type": "Laptop"},
+        {"value": "Часы", "type": "Watch"}
+    ],
+    "slids":[
+        {
+            "id": "1",
+            "subTitle": "Huawei Matebook x pro 13",
+            "title": "Новый  Huawei Matebook x pro 13 ближаящее время будет в наличии.",
+            "bgImg": "./img/intro/bg-laptop.jpeg",
+            "productImg": "./img/intro/laptop.png",
+            "features":[
+                {"feature": "Цвет", "value": "Чёрный"},
+                {"feature": "Встроенная память, Гб", "value": "256 Гб"},
+                {"feature": "Количество SIM-карт", "value": "1 + eSIM"},
+                {"feature": "Материал корпуса", "value": "Металл и стекло"},
+                {"feature": "Диагональ дисплея, Дюйм", "value": "6.7"},
+                {"feature": "Процессор", "value": "Apple A17 Pro"}
+            ]
+        },
+        {
+            "id": "2",
+            "subTitle": "iPhone 15 Pro Max",
+            "title": "Новый iPhone 15 уже у нас. Бегите покупать.",
+            "bgImg": "./img/intro/bg-iphone.jpeg",
+            "productImg": "./img/intro/iphone.png",
+            "features":[
+                {"feature": "Цвет", "value": "Чёрный"},
+                {"feature": "Встроенная память, Гб", "value": "256 Гб"},
+                {"feature": "Количество SIM-карт", "value": "1 + eSIM"},
+                {"feature": "Материал корпуса", "value": "Металл и стекло"},
+                {"feature": "Диагональ дисплея, Дюйм", "value": "6.7"},
+                {"feature": "Процессор", "value": "Apple A17 Pro"}
+            ]
+        },
+        {
+            "id": "3",
+            "subTitle": "Quest 3",
+            "title": "Новый Vr Шлем Quest 3 уже достопун у нас в магазине.",
+            "bgImg": "./img/intro/bg-vr.jpeg",
+            "productImg": "./img/intro/vr.png",
+            "features":[
+                {"feature": "Цвет", "value": "Чёрный"},
+                {"feature": "Встроенная память, Гб", "value": "256 Гб"},
+                {"feature": "Количество SIM-карт", "value": "1 + eSIM"},
+                {"feature": "Материал корпуса", "value": "Металл и стекло"},
+                {"feature": "Диагональ дисплея, Дюйм", "value": "6.7"},
+                {"feature": "Процессор", "value": "Apple A17 Pro"}
+            ]
         }
     ]
 }

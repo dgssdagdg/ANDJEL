@@ -935,7 +935,7 @@ input:disabled + label:before {
   -webkit-box-shadow: 1px 2px 20px 0px rgb(236, 236, 236);
           box-shadow: 1px 2px 20px 0px rgb(236, 236, 236);
 }
-.towar:hover .towar-btn {
+.towar:hover .towar-btns {
   visibility: visible;
   opacity: 1;
 }
@@ -1057,7 +1057,7 @@ input:disabled + label:before {
 }
 
 .towar-content-status {
-  color: rgb(255, 229, 0);
+  color: #5fa800;
   font-size: 15px;
   font-weight: 400;
   line-height: 120%;
@@ -1067,7 +1067,7 @@ input:disabled + label:before {
   width: 100%;
   height: 1px;
   display: block;
-  background-color: var(--yellow);
+  background-color: #5fa800;
 }
 
 .status-not {
@@ -1077,10 +1077,24 @@ input:disabled + label:before {
   background-color: red;
 }
 
-.towar-btn {
+.towar-btns {
   position: absolute;
+  width: 100%;
   top: 100%;
   left: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 4;
+  row-gap: 5px;
+}
+.towar-btns button {
   width: 100%;
   height: 56px;
   display: -webkit-box;
@@ -1092,20 +1106,30 @@ input:disabled + label:before {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  background: var(--yellow);
-  color: rgb(0, 0, 0);
   font-size: 20px;
   font-weight: 500;
   line-height: 120%;
   -webkit-transition: all 0.3s ease 0s;
   transition: all 0.3s ease 0s;
-  opacity: 0;
-  visibility: hidden;
-  z-index: 2;
+}
+
+.towar-btn {
+  background: var(--yellow);
+  color: rgb(0, 0, 0);
 }
 .towar-btn:hover {
   background-color: black;
   color: var(--yellow);
+  -webkit-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
+}
+
+.towar-order-btn {
+  background: red;
+  color: white;
+}
+.towar-order-btn:hover {
+  background-color: black;
   -webkit-transition: all 0.3s ease 0s;
   transition: all 0.3s ease 0s;
 }
@@ -1150,16 +1174,18 @@ input:disabled + label:before {
   .catalog-filter {
     min-width: 250px;
   }
-  .towar-btn {
+  .towar-btns {
     position: relative;
     visibility: visible;
     opacity: 1;
     top: auto;
     left: auto;
     margin-top: 15px;
-    font-size: 18px;
-    min-height: 40px;
+  }
+  .towar-btns button {
     height: auto;
+    min-height: 40px;
+    font-size: 18px;
   }
 }
 @media (max-width: 767px) {
@@ -1180,7 +1206,7 @@ input:disabled + label:before {
     position: fixed;
     width: 100%;
     height: 100%;
-    z-index: 4;
+    z-index: 5;
     top: 0;
     left: 0;
     background-color: white;
@@ -1310,7 +1336,7 @@ input:disabled + label:before {
     width: 100%;
     min-width: 100%;
   }
-  .characteristic {
+  ._hidden-pop-up {
     padding: 20px;
     -webkit-box-pack: stretch;
         -ms-flex-pack: stretch;
@@ -1423,6 +1449,7 @@ input:disabled + label:before {
   transition: all 0.3s ease 0s;
 }
 
+.oreder-pop-up-close,
 .request-call-close {
   position: absolute;
   top: 15px;
@@ -1441,11 +1468,75 @@ input:disabled + label:before {
     top: 10px;
     right: 10px;
   }
-  .request-call {
-    -webkit-box-pack: stretch;
-        -ms-flex-pack: stretch;
-            justify-content: stretch;
-    padding: 20px 20px;
+}
+.oreder-pop-up-row {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 30px;
+  border-radius: 20px;
+  background-color: white;
+}
+
+.oreder-pop-up-title {
+  font-size: 40px;
+  font-weight: 600;
+  line-height: 120%;
+  max-width: 398px;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.oreder-pop-up-buttons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  row-gap: 10px;
+}
+.oreder-pop-up-buttons .oreder-pop-up-btn:nth-of-type(1) {
+  background: rgb(0, 209, 255);
+}
+.oreder-pop-up-buttons .oreder-pop-up-btn:nth-of-type(2) {
+  background: rgb(72, 194, 26);
+}
+
+.oreder-pop-up-btn {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 100%;
+  color: rgb(255, 255, 255) !important;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 120%;
+  height: 46px;
+  padding: 11px 26px;
+}
+
+._active-pop-up {
+  visibility: visible;
+  opacity: 1;
+}
+
+@media (max-width: 767px) {
+  .oreder-pop-up-title {
+    font-size: 35px;
+    margin-bottom: 40px;
   }
 }
 .footer {

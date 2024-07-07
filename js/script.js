@@ -2,7 +2,9 @@
 let sortType = 'По цене (убыванию)';
 let ProdyctType = 'Phone';
 let items = [...document.querySelectorAll('.catalog-rigth-towar')];
-let totalTowar = 2;
+let totalTowar = 4;
+//Храниться масив с товарами на каторых используеться фильр----------------
+let globalFilterData = [];
 //Функция для закрытия менюшки------------------------------------
 function closeMenuAndButton() {
   let menuBtn = document.querySelector('.menu-btn');
@@ -55,7 +57,8 @@ document.addEventListener('click', function(e) {
       selectItem.querySelector('span').textContent = e.target.textContent;
       sortType = e.target.textContent
       selects.classList.remove('_select-open')
-      fetchData(sortType, ProdyctType)
+      selectFilters();
+      // fetchData(sortType, ProdyctType)
     };
 
     //Работа для выбора какой тип товара показывает-----------------------------------------------
@@ -67,6 +70,12 @@ document.addEventListener('click', function(e) {
       e.target.classList.add('_type-active');
       ProdyctType = e.target.dataset.producttype
       fetchData(sortType, ProdyctType)
+      //Обнуленеи количества выводимых товаров------------------------------
+      let moreButton = document.querySelector('.catalog-rigth-more-btn')
+      totalTowar = 4
+      moreButton.textContent = "Показать ещё"
+      //Очищает масив фильра--------------------------
+      globalFilterData = [];
     };
 
     //Открытие фильтра на мобилках-------------------------------------------------
@@ -78,10 +87,10 @@ document.addEventListener('click', function(e) {
 
     //Открытые меню характеристик-------------------------------------------------
     let charectersMenu = document.querySelector('.characteristic');
-    if(e.target.closest('.towar-btn') || !e.target.closest('.characteristic-row') && charectersMenu.classList.contains('active') || e.target.closest('.characteristic-close')) {
+    if(e.target.closest('._open-characters') || !e.target.closest('.characteristic-row') && charectersMenu.classList.contains('active') || e.target.closest('.characteristic-close')) {
       charectersMenu.classList.toggle('active');
       html.classList.toggle('_overflow');
-      addCharecters(e.target.parentNode.getAttribute('id'))
+      addCharecters(e.target.getAttribute('data-id'))
       if(html.classList.contains('_overflow')) {
         document.body.style.paddingRight = `${widthScroll()}px`;
       } else {document.body.style.paddingRight = `${0}px`;}
@@ -101,6 +110,15 @@ document.addEventListener('click', function(e) {
     //Активация функция после клика по чекбоксу 
     if(e.target.closest('.catalog-filter-item [type=checkbox]')) {
       workFilter();
+    }
+
+    //
+    if(e.target.closest('._btn-open-pop-up')){
+      let popUp = document.querySelector(`#${e.target.getAttribute('data-popup')}`)
+      popUp.classList.add('_active-pop-up')
+    }
+    if(e.target.closest('._active-pop-up') && !e.target.closest('._pop-up-row') || e.target.closest('.oreder-pop-up-close')) {
+      e.target.closest('._active-pop-up').classList.remove('_active-pop-up')
     }
     
 });
@@ -128,27 +146,14 @@ document.querySelectorAll('a[href^="#"').forEach(link => {
       });
   });
 });
-const swiper = new Swiper('.intro-sliders', {
-    loop: true,
-    speed: 800,
-    pagination: {
-      el: '.intro-pagination',
-      clickable: true,
-    },
-  
-    navigation: {
-      nextEl: '.intro-button-next',
-      prevEl: '.intro-button-prev',
-    },
-});
 
 //Получение Json ДАННЫХ--------------------------------------------------------------------------------------------------
 let globalData = [];
 async function fetchData(type, typeProduct) {
   try {
       // Загружаем JSON-файл
-      // const response = await fetch('../json/towarData.json');
-      const response = await fetch('https://raw.githubusercontent.com/dgssdagdg/ANDJEL/main/json/towarData.json');
+      const response = await fetch('../json/towarData.json');
+      // const response = await fetch('https://raw.githubusercontent.com/dgssdagdg/ANDJEL/main/json/towarData.json');
       // Проверяем, успешен ли запрос
       if (!response.ok) {
           throw new Error('Network response was not ok ' + response.statusText);
@@ -158,7 +163,6 @@ async function fetchData(type, typeProduct) {
       const data = await response.json();
       const dataTowars = data.towars;
       const dataFilters = data.filters;
-
       //Получение масива фильтра
       const dataFiltersArry = dataFilters.filter(function(item) {
         return item.type == typeProduct
@@ -168,31 +172,55 @@ async function fetchData(type, typeProduct) {
       const dataFilterTowar = dataTowars.filter(function(item) {
         return item.productType == typeProduct
       });
-
+      //Добовление типов каталога---------------------------------
+      const catalogTypesBlock = document.querySelector('.catalog-top-types');
+      if(catalogTypesBlock.children.length <= 0) {
+        addTypes(data.catalogTypes)
+      }
       //Получение масива сартированых по цене
       if(type == 'По цене (убыванию)') {
-        dataFilterTowar.sort((a, b) => b.price - a.price);
-      } else if (type == 'По цене (возрастание)') {dataFilterTowar.sort((a, b) => a.price - b.price);}
+        dataFilterTowar.sort((a, b) => a.price - b.price);
+      } else if (type == 'По цене (возрастание)') {dataFilterTowar.sort((a, b) => b.price - a.price);}
       // Выводим данные в консоль или используем их по назначению
       globalData = dataFilterTowar
       loadFilter(dataFiltersArry[0].filterArray);
       loadTowars(dataFilterTowar.reverse());
+
+      //Активация функции добовленеи сайлдов если условие выполнено-----------------------------
+      let slidersBlock = document.querySelector('.swiper-wrapper');
+      if(slidersBlock.children.length <= 0) {
+        addSlids(data.slids)
+      }
   } catch (error) {
       // Обрабатываем ошибки
       console.error('There has been a problem with your fetch operation:', error);
   }
 }
 fetchData(sortType, ProdyctType);
-
+//функция для добовление новых товаров---------------------
 function clicks() {
-  totalTowar = totalTowar + 2
-  fetchData(sortType, ProdyctType)
+  let moreButton = document.querySelector('.catalog-rigth-more-btn')
+  if(totalTowar >= globalData.length) { // изменить текст у кнопки если бодльше нет слайдов для добавки
+    moreButton.textContent = "Больще нет"
+    return
+  } else if(globalFilterData.length <= 0) {//Добавление еще товаров если в масиве товаров фильтра ноль товаров
+    totalTowar = totalTowar + 4
+    moreButton.textContent = "Показать ещё"
+    loadTowars(globalData);
+  } else if(totalTowar >= globalFilterData.length) {// изменить текст у кнопки если бодльше нет слайдов для добавки
+    moreButton.textContent = "Больще нет"
+  } else { //Добавление еще товаров если в масиве товаров фильтра есть товары
+    totalTowar = totalTowar + 4
+    moreButton.textContent = "Показать ещё"
+    loadTowars(globalFilterData);
+    workFilter()
+  }
 }
+
 //Подгрузка товаров---------------------------------------------------------------
 function loadTowars(data) {
   const towarContainer = document.querySelector('.catalog-rigth-towars');
   towarContainer.innerHTML = ''
-  console.log(totalTowar);
   data.slice(0, totalTowar).forEach(item => {
     let towarStartBlock = `<div id="${item.id}" class="catalog-rigth-towar towar">`;
     let TowarEndBlock = `</div>`
@@ -229,7 +257,12 @@ function loadTowars(data) {
         </div>
       </div>
     `
-    let towarButtonBlock = `<button type="button" class="towar-btn">Подробнее</button>`
+    let towarButtonBlock = `
+      <div class="towar-btns">
+          <button data-id="${item.id}" type="button" class="towar-btn _open-characters">Подробнее</button>
+          <button data-popup="order" type="button" class="towar-order-btn _btn-open-pop-up">Заказать</button>
+      </div>
+    `
     let productTemplateBody = '';
     productTemplateBody += towarStartBlock;
     productTemplateBody += towarSlidersStart;
@@ -263,6 +296,7 @@ function loadTowars(data) {
     })
   });
 }
+
 //Подгрузка Фильтра---------------------------------------------------------
 function loadFilter(filterData) {
   const filterContainer = document.querySelector('.catalog-filter-body');
@@ -300,6 +334,7 @@ function loadFilter(filterData) {
   })
   filterContainer.insertAdjacentHTML('beforeend', filterHtml);
 }
+
 //Подгруска характеристик товара----------------------------------------------------------
 let charectersContainer = document.querySelector('.characteristic-items');
 function addCharecters(id) {
@@ -316,6 +351,7 @@ function addCharecters(id) {
   })
   charectersContainer.insertAdjacentHTML('beforeend', charectersHtml);
 }
+
 //Узнаем ширину скролбара-------------------------------
 function widthScroll(){
   var div = document.createElement('div');
@@ -328,7 +364,8 @@ function widthScroll(){
   document.body.removeChild(div);
   return scrollWidth;
 }
-//
+
+//Работа с фильтра---------------------------------
 function workFilter() {
   let filterItem = document.querySelectorAll('.catalog-filter-item');
   //Получаем масив с отмечиными чек-боксами-----------------------
@@ -355,7 +392,89 @@ function workFilter() {
     })
     return counter > 0
   })
+  globalFilterData = dataFilterTowars;
+  //Изменение текста у кнопки еще если можно показывать больще
+  let moreButton = document.querySelector('.catalog-rigth-more-btn')
+  if(totalTowar < dataFilterTowars.length) {
+    moreButton.textContent = "Показать ещё"
+  } else if(totalTowar < globalData.length) {
+    moreButton.textContent = "Больще нет"
+  }
+
+  //Передача нового масива при выполнении условия и передача простого масива не выполнения усливии-----------
   if(chekedItems.length > 0){
     loadTowars(dataFilterTowars);
   } else {loadTowars(globalData);}
+}
+
+//Добовленеи типов товаров---------------------------------
+function addTypes(types) {
+  const catalogTypesBlock = document.querySelector('.catalog-top-types');
+  let catalogTypesHtml = '';
+  let first = 0
+  types.forEach(item => {
+    if(first == 0){
+      first++
+      catalogTypesHtml += `<div data-producttype="${item.type}" class="catalog-top-type _type-active">${item.value}</div>`
+    } else catalogTypesHtml += `<div data-producttype="${item.type}" class="catalog-top-type">${item.value}</div>`
+    
+  })
+  catalogTypesBlock.insertAdjacentHTML('beforeend', catalogTypesHtml);
+}
+
+//Добовление слайдов в слайдер------------------------------
+function addSlids(slids) {
+  let slidersBlock = document.querySelector('.swiper-wrapper');
+  slidersBlock.innerHTML = ''
+  let slidersHtml = '';
+  slids.forEach(item => {
+    slidersHtml += `
+      <div class="swiper-slide intro-slide">
+        <img src="${item.bgImg}" alt="${item.title}" class="intro-swiper-img">
+        <div class="container">
+            <div class="intro-swiper-row">
+                <div class="intro-swiper-content">
+                    <div class="intro-swiper-sub-title">${item.subTitle}</div>
+                    <h3 class="intro-swiper-title">${item.title}</h3>
+                    <button data-id="${item.id}" type="button" class="intro-swiper-btn _open-characters">Подробнее</button>
+                </div>
+                <img src="${item.productImg}" alt="${item.subTitle}" class="intro-swiper-image">
+            </div>
+        </div>
+      </div>
+    `
+    
+  })
+  slidersBlock.insertAdjacentHTML('beforeend', slidersHtml);
+  const swiper = new Swiper('.intro-sliders', {
+    loop: true,
+    speed: 800,
+    pagination: {
+      el: '.intro-pagination',
+      clickable: true,
+    },
+  
+    navigation: {
+      nextEl: '.intro-button-next',
+      prevEl: '.intro-button-prev',
+    },
+});
+}
+
+
+//Работа селект выбора-------------------------------
+function selectFilters() {
+  //Передает сотрированый по цене простой масив если масив с фильроваными товарами пуст-------------
+  if(globalFilterData.length <= 0) {
+    if(sortType == 'По цене (убыванию)') {
+      globalData.sort((a, b) => b.price - a.price);
+    } else if (sortType == 'По цене (возрастание)') {globalData.sort((a, b) => a.price - b.price);}
+    loadTowars(globalData);
+  } else {//А тут уже передает профильтрованый масив-------------------------------------------
+    if(sortType == 'По цене (убыванию)') {
+      globalFilterData.sort((a, b) => a.price - b.price);
+    } else if (sortType == 'По цене (возрастание)') {globalFilterData.sort((a, b) => b.price - a.price);}
+    console.log(globalFilterData);
+    loadTowars(globalFilterData);
+  }
 }

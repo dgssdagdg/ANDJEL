@@ -204,6 +204,8 @@ function clicks() {
     moreButton.textContent = "Больще нет"
     return
   } else if(globalFilterData.length <= 0) {//Добавление еще товаров если в масиве товаров фильтра ноль товаров
+    console.log('2');
+    
     totalTowar = totalTowar + 4
     moreButton.textContent = "Показать ещё"
     loadTowars(globalData);
@@ -397,10 +399,11 @@ function workFilter() {
   let moreButton = document.querySelector('.catalog-rigth-more-btn')
   if(totalTowar < dataFilterTowars.length) {
     moreButton.textContent = "Показать ещё"
-  } else if(totalTowar < globalData.length) {
+  } else if(totalTowar < globalData.length && dataFilterTowars.length == 0) {
+    moreButton.textContent = "Показать ещё"
+  } else {
     moreButton.textContent = "Больще нет"
   }
-
   //Передача нового масива при выполнении условия и передача простого масива не выполнения усливии-----------
   if(chekedItems.length > 0){
     loadTowars(dataFilterTowars);

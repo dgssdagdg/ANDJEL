@@ -204,8 +204,6 @@ function clicks() {
     moreButton.textContent = "Больще нет"
     return
   } else if(globalFilterData.length <= 0) {//Добавление еще товаров если в масиве товаров фильтра ноль товаров
-    console.log('2');
-    
     totalTowar = totalTowar + 4
     moreButton.textContent = "Показать ещё"
     loadTowars(globalData);
